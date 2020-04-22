@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Team Member :: <strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+    <table *ngIf="action != 'Delete'; else elseTemplate">
+        <tr>
+            <td>
+                <mat-form-field  class="demo-full-width" appearance="fill">
+                    <mat-label>First Name</mat-label>  
+                    <input matInput [(ngModel)]="local_data.firstName" placeholder="First Name">  
+                </mat-form-field> 
+            </td>
+            <td>
+                <mat-form-field  class="demo-full-width" appearance="fill">
+                    <mat-label>Last Name</mat-label>  
+                    <input matInput [(ngModel)]="local_data.lastName" placeholder="Last Name">  
+                </mat-form-field> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field class="demo-full-width" appearance="fill">
+                    <mat-label>Phone Number</mat-label>  
+                    <input matInput [(ngModel)]="local_data.phone" placeholder="Phone Number">  
+                </mat-form-field> 
+            </td>
+            <td>
+                <mat-form-field class="demo-full-width" appearance="fill">
+                    <mat-label>Email Address</mat-label>  
+                    <input matInput [(ngModel)]="local_data.email" placeholder="Email Address">  
+                </mat-form-field> 
+            </td>
+        </tr>
+    </table>
+
+  <ng-template #elseTemplate>
+    Sure to delete <b>{{local_data.id}}</b>?
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
