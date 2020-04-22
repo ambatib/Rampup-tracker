@@ -1,6 +1,6 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TeamMembers } from 'src/app/model/teammembers';
+import { TeamMembers } from '@core/model/teammembers';
 
 @Component({
   selector: 'app-dialog-box',

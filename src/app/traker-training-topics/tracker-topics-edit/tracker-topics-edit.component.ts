@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingTopics } from '../../model/trainingtopics';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../../service/data.service';
-import { TrainingDetails } from '../../model/trainingdetails';
+import { TrainingTopics } from '@core/model/trainingtopics';
+import { DataService } from '@core/service/data.service';
+import { TrainingDetails } from '@core/model/trainingdetails';
+
 
 @Component({
   selector: 'app-tracker-topics-edit',

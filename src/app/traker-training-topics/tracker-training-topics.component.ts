@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingTopics } from '../model/trainingtopics';
-import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
+import { TrainingTopics } from '@core/model/trainingtopics';
+import { DataService } from '@core/service/data.service';
 
 @Component({
   selector: 'app-tracker-training-topics',
