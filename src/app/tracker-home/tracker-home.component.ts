@@ -1,54 +1,86 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../service/data.service';
-import { TrainingDetails } from '../model/trainingdetails';
-
-
+import { TrainingTopics } from '@core/model/trainingtopics';
+import { Router } from '@angular/router';
+import { TrainingDetails } from '@core/model/trainingdetails';
+import { DataService } from '@core/service/data.service';
+import { TeamMembers } from '@core/model/teammembers';
 
 @Component({
   selector: 'app-tracker-home',
   templateUrl: './tracker-home.component.html',
   styleUrls: ['./tracker-home.component.css']
 })
+
 export class TrackerHomeComponent implements OnInit {
 
   panelOpenState = false;
-  trainings : TrainingDetails[];
-  inProgressTrainings = [];
-  completedTrainings:string[];
-  yetToStartTrainings:string[];
-  total: number;
+  trainings: TrainingDetails[];
+  topics: TrainingTopics[] = [];
   today = new Date();
-  
-  constructor(private dataservice: DataService) { }
-  
-  ngOnInit(): void {
-    this.dataservice.getAllTraingDetails().subscribe((data: TrainingDetails[])=> {
-      this.trainings = data;
-      console.log(this.trainings);
-      console.log(this.inProgressTrainings.push('one'));
-    });   
-    this.dashboardDetail(this.trainings);
-  }
+  upcomingTrainingDetails: TrainingDetails[] = [];
+  completedTrainingDetails: TrainingDetails[] = [];
+  inprogressTrainingDetails: TrainingDetails[] = [];
+  teamMembers: TeamMembers[] = [];
+  welcomeMessage: Date;
+  constructor(private dataservice: DataService,
+              public router: Router) { }
 
-  public dashboardDetail(trainDeatils: TrainingDetails[]){
-    this.trainings.forEach( row => {
-      if(this.today > row.startDate && this.today < row.endDate){
-        console.log('inprogress');
-        this.inProgressTrainings.push(row.trainingName);
-        console.log(this.inProgressTrainings);
-      }
-      if(this.today > row.endDate){
-        console.log('completed');
-        this.completedTrainings.push(row.trainingName);
-        console.log(this.completedTrainings);
-      }
-      if(this.today > row.startDate){
-        console.log('yest');
-        this.yetToStartTrainings.push(row.trainingName);
-        console.log(this.yetToStartTrainings);
-      }
-      this.total = this.trainings.length;
+  ngOnInit(){
+    this.dataservice.getAllTraingDetails().subscribe((data: TrainingDetails[]) => {
+      this.trainings = data;
+      this.upcomingTrainingDetails = this.getUpcomingTrainings();
+      this.completedTrainingDetails = this.getCompletedTrainingDetails();
+      this.inprogressTrainingDetails = this.getInProgressTrainingDetails();
+    });
+    this.dataservice.getAllTeamMembers().subscribe((memberdata: TeamMembers[]) => {
+      this.teamMembers = memberdata;
+    });
+    this.dataservice.getApplicationMessage().subscribe(message => {
+      const userStr = JSON.stringify(message.DATE);
+      console.log("userstr"+userStr);
+      this.welcomeMessage = JSON.parse(userStr);
+
     });
   }
-  
+  getInProgressTrainingDetails(): TrainingDetails[] {
+    this.trainings.forEach( row => {
+      const startDate = new Date(row.startDate).getDate();
+      const endDate = new Date(row.endDate).getDate();
+      const currentDate = this.today.getDate();
+      if (currentDate > startDate && currentDate < endDate){
+        this.inprogressTrainingDetails.push(row);
+      }
+      row.progress = ((currentDate - startDate) / (endDate - startDate)) * 100;
+      this.dataservice.getTopicsByTrainingDetailsId(row.id).subscribe(data => {
+      row.numberofTopics = data.length;
+      });
+    });
+    return this.inprogressTrainingDetails;
+  }
+  getCompletedTrainingDetails(): TrainingDetails[] {
+    this.trainings.forEach( row => {
+      if (this.today < new Date(row.endDate)){
+        this.completedTrainingDetails.push(row);
+      }
+     });
+    return this.completedTrainingDetails;
+  }
+  getUpcomingTrainings(): TrainingDetails[] {
+    this.trainings.forEach( row => {
+      if (this.today < new Date(row.startDate)){
+        this.upcomingTrainingDetails.push(row);
+      }
+     });
+    return this.upcomingTrainingDetails;
+  }
+  getTopicsByTrainingDetailsId(topicDetailsId) {
+    window.localStorage.removeItem('topicDetailsId');
+    window.localStorage.setItem('topicDetailsId', topicDetailsId.toString());
+    this.router.navigateByUrl('tracker-training-topic');
+  }
+
+  getAllTeamMembers(){
+    this.router.navigateByUrl('tracker-team-members');
+  }
+
 }

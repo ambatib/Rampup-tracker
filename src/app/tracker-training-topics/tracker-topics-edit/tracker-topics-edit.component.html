@@ -1,6 +1,8 @@
 <div class="container" style="margin-top: 10px;">
     <button mat-raised-button color="primary" >Topic Details</button>
 </div>
+<label *ngIf="editTopicForm.errors" style="color: red;">{{ editTopicForm.errors?.dates | json }}</label>
+
 <div style="padding: 13px;"> 
     <form [formGroup]="editTopicForm">
         <div class="form-group">

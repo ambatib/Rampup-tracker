@@ -20,6 +20,10 @@
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns":true
   }
 }

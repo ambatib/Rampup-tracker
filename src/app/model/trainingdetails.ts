@@ -4,4 +4,6 @@ export interface TrainingDetails {
     topic: string;
     startDate: Date;
     endDate: Date;
+    progress: number;
+    numberofTopics: number;
 }

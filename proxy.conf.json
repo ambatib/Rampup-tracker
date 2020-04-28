@@ -1,0 +1,12 @@
+{
+    "/test": {
+      "target": "http://localhost:8082/test",
+      "secure": false,
+      "changeOrigin": true
+    },
+    "": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "changeOrigin": true
+      }
+  }

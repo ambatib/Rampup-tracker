@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '@core/service/data.service';
 import { TrainingDetails } from '@core/model/trainingdetails';
+import { DateValidator } from '@core/validaton/datevalidator';
 
 @Component({
   selector: 'app-tracker-create-trainingtopics',
@@ -12,10 +13,10 @@ import { TrainingDetails } from '@core/model/trainingdetails';
 export class TrackerCreateTrainingtopicsComponent implements OnInit {
   topicDetailsForm: FormGroup;
   trainingDetails = [];
-  
+
   constructor(public fb: FormBuilder,
               private router: Router,
-              public dataService: DataService) { 
+              public dataService: DataService) {
               }
 
   ngOnInit() {
@@ -24,18 +25,12 @@ export class TrackerCreateTrainingtopicsComponent implements OnInit {
       description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      trainingDetails:['',Validators.required]
-    });
+      trainingDetails: ['', Validators.required]}, { validator: DateValidator.dateLessThan('startDate', 'endDate')}
+      );
     this.dataService.getAllTraingDetails().subscribe((data: TrainingDetails[]) =>
       {
-        console.log("sdada"+data.length);
         this.trainingDetails = data;
-        console.log("Trainings"+this.trainingDetails);
-        console.log("Trainings"+this.trainingDetails.length);
-        console.log("asasas"+this.topicDetailsForm.value);
-    })
-    
-  
+      });
   }
 
   submitForm() {
@@ -43,7 +38,7 @@ export class TrackerCreateTrainingtopicsComponent implements OnInit {
       console.log('Please enter all details');
       return;
     }
-    this.dataService.createTopic(this.topicDetailsForm.value).subscribe(res => {
+    this.dataService.createTopic(this.topicDetailsForm.value).subscribe(() => {
       console.log('Training topic created!');
       this.router.navigateByUrl('tracker-training-topic');
     });

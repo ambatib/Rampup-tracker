@@ -34,7 +34,7 @@ export class TrackerTrainingPageComponent implements OnInit {
 
   updateTraining(trainingdetails){
     this.router.navigateByUrl('tracker-create-trainingDetails');
-    this.dataservice.updateTraining(trainingdetails).subscribe(res => {
+    this.dataservice.updateTraining(trainingdetails).subscribe(() => {
     this.router.navigateByUrl('tracker-training-page');
     });
   }

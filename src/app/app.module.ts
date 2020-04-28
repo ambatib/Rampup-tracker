@@ -17,14 +17,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogBoxComponent } from './tracker-team-members/dialog-box/dialog-box.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TrackerTopicsEditComponent } from './traker-training-topics/tracker-topics-edit/tracker-topics-edit.component';
-import { TrackerCreateTrainingtopicsComponent } from './traker-training-topics/tracker-create-trainingtopics/tracker-create-trainingtopics.component';
-import { TrackerTrainingEditComponent } from './traker-training-page/tracker-training-edit/tracker-training-edit.component';
-import { TrackerCreateTrainingdetailsComponent } from './traker-training-page/tracker-create-trainingdetails/tracker-create-trainingdetails.component';
-import { TrackerTrainingTopicsComponent } from './traker-training-topics/tracker-training-topics.component';
-import { TrackerTrainingPageComponent } from './traker-training-page/tracker-training-page.component';
 import {MatExpansionModule} from '@angular/material/expansion';
- 
+import { DatePipe } from '@angular/common';
+import { TrackerTrainingPageComponent } from './tracker-training-page/tracker-training-page.component';
+import { TrackerTrainingTopicsComponent } from './tracker-training-topics/tracker-training-topics.component';
+import { TrackerCreateTrainingdetailsComponent } from './tracker-training-page/tracker-create-trainingdetails/tracker-create-trainingdetails.component';
+import { TrackerTrainingEditComponent } from './tracker-training-page/tracker-training-edit/tracker-training-edit.component';
+import { TrackerCreateTrainingtopicsComponent } from './tracker-training-topics/tracker-create-trainingtopics/tracker-create-trainingtopics.component';
+import { TrackerTopicsEditComponent } from './tracker-training-topics/tracker-topics-edit/tracker-topics-edit.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
   entryComponents: [
     DialogBoxComponent
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

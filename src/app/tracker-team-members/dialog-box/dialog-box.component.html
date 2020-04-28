@@ -5,13 +5,13 @@
             <td>
                 <mat-form-field  class="demo-full-width" appearance="fill">
                     <mat-label>First Name</mat-label>  
-                    <input matInput [(ngModel)]="local_data.firstName" placeholder="First Name">  
+                    <input matInput [(ngModel)]="localData.firstName" placeholder="First Name">  
                 </mat-form-field> 
             </td>
             <td>
                 <mat-form-field  class="demo-full-width" appearance="fill">
                     <mat-label>Last Name</mat-label>  
-                    <input matInput [(ngModel)]="local_data.lastName" placeholder="Last Name">  
+                    <input matInput [(ngModel)]="localData.lastName" placeholder="Last Name">  
                 </mat-form-field> 
             </td>
         </tr>
@@ -19,20 +19,20 @@
             <td>
                 <mat-form-field class="demo-full-width" appearance="fill">
                     <mat-label>Phone Number</mat-label>  
-                    <input matInput [(ngModel)]="local_data.phone" placeholder="Phone Number">  
+                    <input matInput [(ngModel)]="localData.phone" placeholder="Phone Number">  
                 </mat-form-field> 
             </td>
             <td>
                 <mat-form-field class="demo-full-width" appearance="fill">
                     <mat-label>Email Address</mat-label>  
-                    <input matInput [(ngModel)]="local_data.email" placeholder="Email Address">  
+                    <input matInput [(ngModel)]="localData.email" placeholder="Email Address">  
                 </mat-form-field> 
             </td>
         </tr>
     </table>
 
   <ng-template #elseTemplate>
-    Sure to delete <b>{{local_data.id}}</b>?
+    Sure to delete <b>{{localData.id}}</b>?
   </ng-template>
 </div>
 <div mat-dialog-actions>

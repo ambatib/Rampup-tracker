@@ -1,6 +1,7 @@
 <div class="container" style="margin-top: 10px;">
     <button mat-raised-button color="primary" >Training Details</button>
 </div>
+<label *ngIf="trainingDetailsForm.errors" style="color: red;">{{ trainingDetailsForm?.errors.dates | json }}</label>
 <div style="padding: 13px;"> 
     <form [formGroup]="trainingDetailsForm" validate>
         <div class="form-group">

@@ -4,19 +4,19 @@
 <button mat-raised-button color= "primary" routerLink="/tracker-training-topic">Training Topic</button>
 
 <mat-accordion>
-    
     <mat-card>
-        <mat-card-title>
+        <mat-card-title style="text-align: left;">
             Trainings this month
         </mat-card-title>
-        <mat-card-content>
+        <mat-card-content >
             <table class="mat-card">
-                <th>
-                    <tr><td>In Progress : </td></tr>
-                    <tr><p>Completed Trainings : </p></tr>
-                    <tr><p>Yet To Start : </p></tr>
-                    <tr><p>Total : </p></tr>
-                </th>
+                <th>  
+                    <tr><td># of Teammembers:<div *ngIf= "teamMembers" (click)="getAllTeamMembers()">{{teamMembers?.length}}</div></td></tr>
+                    <tr><td>In Progress : {{inprogressTrainingDetails?.length}} </td></tr>
+                    <tr><td>Completed Trainings : {{completedTrainingDetails?.length}} </td></tr>
+                    <tr><td>Yet To Start : {{upcomingTrainingDetails?.length}} </td></tr>
+                    <tr><td>Total : {{trainings?.length}}</td></tr>
+                  </th>
             </table>
         </mat-card-content>
     </mat-card>
@@ -24,29 +24,58 @@
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-            Ongoing trainings
+            <b>Ongoing trainings</b>
         </mat-panel-title>
       </mat-expansion-panel-header>
-  
-      <mat-form-field>
-        <mat-label>First name</mat-label>
-        <input matInput>
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Age</mat-label>
-        <input matInput type="number" min="1">
-      </mat-form-field>
+      <table>
+        <thead *ngIf= "inprogressTrainingDetails.length">
+            <tr>
+                <!--<th>#</th>-->
+                <th>Training Name</th>
+                <th>Start Date</th>
+                <th>Planned end date</th>
+                <th># of topics</th>
+                <th style="text-align: left;">Progress</th>                             
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let trainingDetail of inprogressTrainingDetails">
+                <td>{{trainingDetail.trainingName}}</td>
+                <td>{{trainingDetail.startDate| date :'MM/dd/yyyy'}}</td>
+                <td>{{trainingDetail.endDate | date :'MM/dd/yyyy'}}</td>
+                <td><div *ngIf= "trainingDetail" (click)="getTopicsByTrainingDetailsId(trainingDetail.id)">{{trainingDetail?.numberofTopics}}</div></td>
+                <td> {{trainingDetail?.progress | number:'2.1-2'}}  <progress max="100" value="{{trainingDetail?.progress}}"> </progress></td>
+             </tr>
+        </tbody>
+    </table>
+      
     </mat-expansion-panel>
     <mat-expansion-panel (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-            Upcoming trainings
+            <b>Upcoming trainings</b>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
+      <table>
+        <thead *ngIf= "upcomingTrainingDetails?.length">
+            <tr>
+                <!--<th>#</th>-->
+                <th>Training Name</th>
+                <th>Start Date</th>
+                <th>Planned end date</th>
+                <th># of topics</th>                             
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let trainingDetail of upcomingTrainingDetails">
+                <td>{{trainingDetail.trainingName}}</td>
+                <td>{{trainingDetail.startDate| date :'MM/dd/yyyy'}}</td>
+                <td>{{trainingDetail.endDate | date :'MM/dd/yyyy'}}</td>
+                <td><div *ngIf= "trainingDetail" (click)="getTopicsByTrainingDetailsId(trainingDetail.id)">{{trainingDetail?.numberofTopics}}</div></td>
+             </tr>
+        </tbody>
+    </table>
     </mat-expansion-panel>
   </mat-accordion>
-
 </div>

@@ -12,60 +12,59 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 })
 export class TrackerTeamMembersComponent implements OnInit {
 
-  teammembers = [];
-  tableColumns  :  string[] = ['id','firstName', 'lastName', 'phone', 'email', 'action'];
+  teammembers: TeamMembers[] = [];
+  tableColumns: string[] = ['id', 'firstName', 'lastName', 'phone', 'email', 'action'];
   highlightedRow = [];
-  id : number ;
+  id: number ;
   @ViewChild(MatTable) mytable: MatTable<TeamMembers>;
-  
+
   constructor(public dataService: DataService,
-    public dialog : MatDialog) {
+              public dialog: MatDialog) {
    }
 
-  ngOnInit(): void {
-    this.dataService.getRequest().subscribe((data : TeamMembers[]) =>{
-      console.log(data);
+  ngOnInit() {
+    this.dataService.getAllTeamMembers().subscribe((data: TeamMembers[]) => {
       this.teammembers = data;
     });
   }
 
-  openDialog(action,obj) {
+  openDialog(action, obj) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       width: '500px',
-      data:obj
+      data: obj
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.event == 'Add'){
+      if (result.event === 'Add'){
         this.addMember(result.data);
-      }else if(result.event == 'Update'){
+      }else if (result.event === 'Update'){
         this.updateMember(result.data);
-      }else if(result.event == 'Delete'){
+      }else if (result.event === 'Delete'){
         this.deleteMember(result.data);
       }
     });
   }
 
-  addMember(row_obj){
-    console.log(row_obj);
-    this.dataService.addTeamMember(row_obj).subscribe(res =>{
+  addMember(rowObj){
+    console.log(rowObj);
+    this.dataService.addTeamMember(rowObj).subscribe(() => {
       this.ngOnInit();
-      console.log("Team Member added");
+      console.log('Team Member added');
     });
     console.log(this.mytable.dataSource);
     this.mytable.renderRows();
   }
 
-  updateMember(row_obj: TeamMembers){
-    this.dataService.update(row_obj.id, row_obj).subscribe(res=>{
+  updateMember(rowObj: TeamMembers){
+    this.dataService.update(rowObj.id, rowObj).subscribe(() => {
       this.ngOnInit();
-      console.log('Team Member updated')
+      console.log('Team Member updated');
     });
   }
 
-  deleteMember(row_obj){
-    this.dataService.deleteMember(row_obj.id).subscribe(res=>{
+  deleteMember(rowObj){
+    this.dataService.deleteMember(rowObj.id).subscribe(() => {
       this.ngOnInit();
       console.log('Team Member Deleted');
     });

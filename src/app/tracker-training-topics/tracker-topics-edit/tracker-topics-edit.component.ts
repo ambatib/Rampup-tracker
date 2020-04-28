@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TrainingTopics } from '@core/model/trainingtopics';
 import { DataService } from '@core/service/data.service';
 import { TrainingDetails } from '@core/model/trainingdetails';
-
+import { DateValidator } from '@core/validaton/datevalidator';
 
 @Component({
   selector: 'app-tracker-topics-edit',
@@ -15,6 +15,7 @@ export class TrackerTopicsEditComponent implements OnInit {
   trainingTopic: TrainingTopics;
   editTopicForm: FormGroup;
   trainingDetails = [];
+  currentDate = new Date().toString;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private dataService: DataService) { }
@@ -34,16 +35,12 @@ export class TrackerTopicsEditComponent implements OnInit {
       description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      trainingDetails:['']
-    });
+      trainingDetails: ['']}, {validator: DateValidator.dateLessThan('startDate', 'endDate')}
+      );
     this.dataService.getAllTraingDetails().subscribe((data: TrainingDetails[]) =>
       {
-        console.log("sdada"+data.length);
         this.trainingDetails = data;
-        console.log("Trainings"+this.trainingDetails);
-        console.log("Trainings"+this.trainingDetails.length);
-        console.log("asasas"+this.editTopicForm.value);
-    })
+            });
     this.dataService.getByTopicDetailsId(topicId)
       .subscribe( data => {
         this.editTopicForm.setValue(data);
@@ -55,11 +52,9 @@ export class TrackerTopicsEditComponent implements OnInit {
       console.log('Please enter all details');
       return;
     }
-    console.log("id:::"+this.editTopicForm.get('id'));
-    this.dataService.updateTopic(this.editTopicForm.value).subscribe(res => {
+    this.dataService.updateTopic(this.editTopicForm.value).subscribe(() => {
       console.log('Training topic updated!');
       this.router.navigateByUrl('tracker-training-topic');
     });
   }
-
 }

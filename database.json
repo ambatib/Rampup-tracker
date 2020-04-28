@@ -46,43 +46,50 @@
       "id": 1,
       "trainingName": "Java 8",
       "topic": "Streams/Collections1",
-      "startDate": "2020-04-20",
+      "startDate": "2020-04-24",
       "endDate": "2020-04-30"
     },
     {
-      "trainingName": "Angular",
+      "id": 2,
+      "trainingName": "Angular 8",
       "topic": "Forms",
-      "startDate": "2020-04-22",
-      "endDate": "2020-04-30",
-      "id": 2
+      "startDate": "2020-04-20",
+      "endDate": "2020-04-30"
     },
     {
       "id": 3,
       "trainingName": "Devops",
       "topic": "Install docker",
-      "startDate": "2020-04-28",
+      "startDate": "2020-04-29",
       "endDate": "2020-06-21"
     },
     {
-      "trainingName": "Java8",
+      "id": 4,
+      "trainingName": "Java 9",
       "topic": "Streams",
-      "startDate": "2020-04-01",
-      "endDate": "2020-04-02",
-      "id": 4
+      "startDate": "2020-04-03",
+      "endDate": "2020-04-10"
     },
     {
-      "trainingName": "Java8",
+      "id": 5,
+      "trainingName": "Angular 9",
       "topic": "forEach",
       "startDate": "2020-04-06",
-      "endDate": "2020-04-07",
-      "id": 5
+      "endDate": "2020-04-10"
     },
     {
-      "trainingName": "Java8",
+      "id": 6,
+      "trainingName": "Java 10",
       "topic": "Method references",
       "startDate": "2020-03-25",
-      "endDate": "2020-03-26",
-      "id": 6
+      "endDate": "2020-03-26"
+    },
+    {
+      "trainingName": "Angular 9",
+      "topic": "Rx JS",
+      "startDate": "2020-04-30",
+      "endDate": "2020-05-21",
+      "id": 7
     }
   ],
   "trainingTopics": [
@@ -96,11 +103,43 @@
     },
     {
       "id": 5,
-      "topicName": "Install docker",
-      "description": "Docker installations",
-      "startDate": "2020-04-08",
-      "endDate": "2020-04-21",
-      "trainingDetails": "3"
+      "topicName": "Validations",
+      "description": "Form validations",
+      "startDate": "2020-04-22",
+      "endDate": "2020-04-30",
+      "trainingDetails": "2"
+    },
+    {
+      "id": 6,
+      "topicName": "Forms",
+      "description": "Reactive forms",
+      "startDate": "2020-04-20",
+      "endDate": "2020-04-30",
+      "trainingDetails": "2"
+    },
+    {
+      "topicName": "Streams",
+      "description": "test",
+      "startDate": "2020-04-22",
+      "endDate": "2020-04-28",
+      "trainingDetails": "1",
+      "id": 7
+    },
+    {
+      "topicName": "Kubernates",
+      "description": "Installation/yml",
+      "startDate": "2020-04-24",
+      "endDate": "2020-04-30",
+      "trainingDetails": "3",
+      "id": 8
+    },
+    {
+      "topicName": "Rx Js",
+      "description": "Observables ",
+      "startDate": "2020-04-30",
+      "endDate": "2020-05-21",
+      "trainingDetails": "7",
+      "id": 9
     }
   ]
 }

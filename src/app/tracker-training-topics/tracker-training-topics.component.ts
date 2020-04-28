@@ -13,16 +13,22 @@ export class TrackerTrainingTopicsComponent implements OnInit {
   trainingTopics: TrainingTopics[] = [];
 
   constructor(public dataService: DataService,
-              private router: Router) {
-
-               }
+              private router: Router) {     }
 
   ngOnInit(){
-    console.log('inside componenet');
+    const topicDetailsId = window.localStorage.getItem('topicDetailsId');
+    window.localStorage.removeItem('topicDetailsId');
+    if (topicDetailsId === null){
     this.dataService.getAllTraingTopics().subscribe((data: TrainingTopics[]) => {
+      this.trainingTopics = data;
+      window.localStorage.removeItem('topicDetailsId');
+    });
+   } else {
+    this.dataService.getTopicsByTrainingDetailsId(topicDetailsId).subscribe((data: TrainingTopics[]) => {
       console.log('Data' + data.length);
       this.trainingTopics = data;
     });
+   }
   }
 
 
