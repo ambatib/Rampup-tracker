@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { TrainingDetails } from '@core/model/trainingdetails';
 import { DataService } from '@core/service/data.service';
 import { TeamMembers } from '@core/model/teammembers';
+import { Employee } from '@core/model/employee';
 
 @Component({
   selector: 'app-tracker-home',
@@ -21,7 +22,9 @@ export class TrackerHomeComponent implements OnInit {
   completedTrainingDetails: TrainingDetails[] = [];
   inprogressTrainingDetails: TrainingDetails[] = [];
   teamMembers: TeamMembers[] = [];
-  welcomeMessage: Date;
+  employees: Employee[] = [];
+  todayDate: string;
+  month: string;
   constructor(private dataservice: DataService,
               public router: Router) { }
 
@@ -36,9 +39,16 @@ export class TrackerHomeComponent implements OnInit {
       this.teamMembers = memberdata;
     });
     this.dataservice.getApplicationMessage().subscribe(message => {
+      console.log('From app1' + message.DATE);
       const userStr = JSON.stringify(message.DATE);
-      console.log("userstr"+userStr);
-      this.welcomeMessage = JSON.parse(userStr);
+      console.log('userstr' + userStr);
+      this.todayDate = JSON.parse(userStr);
+      console.log('From app2 ' + message.Month);
+      this.month = JSON.parse(JSON.stringify(message.Month));
+
+    });
+    this.dataservice.getAllEmployees().subscribe((data: Employee[]) => {
+      this.employees = data;
 
     });
   }
@@ -82,5 +92,4 @@ export class TrackerHomeComponent implements OnInit {
   getAllTeamMembers(){
     this.router.navigateByUrl('tracker-team-members');
   }
-
 }

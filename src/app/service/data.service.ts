@@ -6,6 +6,7 @@ import {  throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TrainingTopics } from '../model/trainingtopics';
 import { TrainingDetails } from '../model/trainingdetails';
+import { Employee } from '@core/model/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,13 @@ export class DataService {
 
   }
 
+  getAllEmployees(): Observable<Employee[]>{
+    console.log(' Get All employees');
+    return this.httpClient.get<Employee[]>(this.APPLICATION_URL + '/employees/', this.httpOptions).pipe();
+  }
+
   getAllTeamMembers(): Observable<TeamMembers[]>{
+    console.log(' Get members');
     return this.httpClient.get<TeamMembers[]>(this.API_URL + '/teammembers/', this.httpOptions).pipe();
   }
 
